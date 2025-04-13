@@ -6,7 +6,7 @@ M.buf = -1
 M.win = -1
 M.job = -1
 
-function M.f()
+function M.f(...)
   local from = api.nvim_get_current_win()
 
   if api.nvim_win_is_valid(M.win) and M.buf == api.nvim_win_get_buf(M.win) then
@@ -20,7 +20,9 @@ function M.f()
   api.nvim_win_set_buf(M.win, M.buf)
 
   vim.fn.jobstop(M.job)
-  M.job = vim.fn.termopen({vim.g.f_command}, {
+  local args = {...}
+  local cmd = { vim.g.f_command, unpack(args) }
+  M.job = vim.fn.termopen(cmd, {
     detach = 1,
   })
 

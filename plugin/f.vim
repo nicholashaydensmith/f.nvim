@@ -7,6 +7,6 @@ if (!exists('g:f_command'))
   let g:f_command = "f"
 endif
 
-command! -nargs=0 F lua require("f").f()
+command! -nargs=* F lua require("f").f(<f-args>)
 
 nnoremap <silent> <leader>f <cmd>silent F<cr>
